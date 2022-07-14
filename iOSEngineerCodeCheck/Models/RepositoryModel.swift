@@ -18,8 +18,8 @@ class Repository {
     let owner: [String: Any]
     
     init(attributes: [String: Any]) {
-        name = attributes["full_name"] as! String
-        language = attributes["language"] as! String
+        name = attributes["full_name"] as? String ?? ""
+        language = attributes["language"] as? String ?? ""
         stargazersCount = attributes["stargazers_count"] as? Int ?? 0
         watchersCount = attributes["wachers_count"] as? Int ?? 0
         forksCount = attributes["forks_count"] as? Int ?? 0
