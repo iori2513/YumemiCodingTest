@@ -23,12 +23,6 @@ class ViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-//        api.getData(success: {(repos) in
-//            self.repos.append(contentsOf: repos)
-//        }){(error) in
-//            print(0)
-//        }
         SchBr.text = "GitHubのリポジトリを検索できるよー"
         SchBr.delegate = self
     }
@@ -48,11 +42,6 @@ class ViewController: UITableViewController, UISearchBarDelegate {
         word = searchBar.text
         
         if let word = word {
-            
-//            let result = api.getRepository(word: word, tableView: self.tableView)
-//            repo = result.0
-//            task = result.1
-//            print(repo)
             api.getData(for: word, success: { (repos) in
                 self.repos = repos
                 self.tableView.reloadData()
@@ -63,24 +52,6 @@ class ViewController: UITableViewController, UISearchBarDelegate {
                 return
             })
             
-            
-            
-//            url = "https://api.github.com/search/repositories?q=\(word!)"
-//            task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, res, err) in
-//                if let obj = try! JSONSerialization.jsonObject(with: data!) as? [String: Any] {
-//                    if let items = obj["items"] as? [[String: Any]] {
-//                    self.repo = items
-//                        DispatchQueue.main.async {
-//                            self.tableView.reloadData()
-//                        }
-//                    }
-//                }
-//            }
-//        // これ呼ばなきゃリストが更新されません
-//        task?.resume()
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
         }
         else { return }
         
