@@ -22,37 +22,28 @@ class RepositoryDetailVC: UIViewController {
     @IBOutlet weak var IsssLbl: UILabel!
     
     var vc1: SearchRepositoryVC!
+    var image = Image()
         
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let repo = vc1.repos[vc1.idx]
         
+        TtlLbl.text = repo.name
         LangLbl.text = "Written in \(repo.language)"
         StrsLbl.text = "\(repo.stargazersCount) stars"
         WchsLbl.text = "\(repo.watchersCount) watchers"
         FrksLbl.text = "\(repo.forksCount) forks"
         IsssLbl.text = "\(repo.openIssuesCount) open issues"
-        getImage()
+        
+        //画像を取得する
+        image.getImage(for: repo, success: {(img) in
+            self.ImgView.image = img
+            return
+        }, failure: {(error) in
+            print(error)
+            return
+        })
         
     }
-    
-    func getImage(){
-        
-        let repo = vc1.repos[vc1.idx]
-
-        TtlLbl.text = repo.name
-
-        let owner = repo.owner
-            if let imgURL = owner["avatar_url"] as? String {
-                URLSession.shared.dataTask(with: URL(string: imgURL)!) { (data, res, err) in
-                    let img = UIImage(data: data!)!
-                    DispatchQueue.main.async {
-                        self.ImgView.image = img
-                    }
-                }.resume()
-            }
-        
-    }
-    
 }

@@ -45,7 +45,6 @@ class SearchRepositoryVC: UITableViewController, UISearchBarDelegate {
             api.getData(for: word, success: { (repos) in
                 self.repos = repos
                 self.tableView.reloadData()
-                print(self.repos)
                 return
             }, failure: {(error) in
                 print(1)

@@ -29,9 +29,7 @@ class API {
             }
             guard let data = data else { return }
             guard let jsonOptional = try! JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
-            print(jsonOptional)
-            guard let json = jsonOptional["items"] as? [[String: Any]] else { print(1)
-                return }
+            guard let json = jsonOptional["items"] as? [[String: Any]] else { return }
 
             var repos = [Repository]()
             for j in json {
