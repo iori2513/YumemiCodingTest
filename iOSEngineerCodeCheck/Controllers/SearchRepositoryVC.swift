@@ -72,11 +72,16 @@ class SearchRepositoryVC: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        //contentConfigurationを用いてレイアウトを整える
         let cell = UITableViewCell()
+        var content = cell.defaultContentConfiguration()
         let rp = repos[indexPath.row]
-        cell.textLabel?.text = rp.name
-        cell.detailTextLabel?.text = rp.language
-        cell.tag = indexPath.row
+        
+        // cellの内容
+        content.text = rp.name
+        content.secondaryText = rp.language
+//        cell.tag = indexPath.row
+        cell.contentConfiguration = content
         return cell
         
     }
