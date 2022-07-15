@@ -22,13 +22,16 @@ class RepositoryDetailVC: UIViewController {
     @IBOutlet weak var IsssLbl: UILabel!
     
     var vc1: SearchRepositoryVC!
-    var image = Image()
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        viewSetting()
+    }
+    
+    func viewSetting() {
         let repo = vc1.repos[vc1.idx]
         
+        //Labelに挿入するテキストを設定
         TtlLbl.text = repo.name
         LangLbl.text = "Written in \(repo.language)"
         StrsLbl.text = "\(repo.stargazersCount) stars"
@@ -36,7 +39,8 @@ class RepositoryDetailVC: UIViewController {
         FrksLbl.text = "\(repo.forksCount) forks"
         IsssLbl.text = "\(repo.openIssuesCount) open issues"
         
-        //画像を取得する
+        //画像を取得し、画面に表示する
+        let image = Image()
         image.getImage(for: repo, success: {(img) in
             self.ImgView.image = img
             return
@@ -44,6 +48,5 @@ class RepositoryDetailVC: UIViewController {
             print(error)
             return
         })
-        
     }
 }
