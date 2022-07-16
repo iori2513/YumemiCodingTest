@@ -23,14 +23,8 @@ class SearchRepositoryVC: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        SchBr.text = "GitHubのリポジトリを検索できるよー"
+        SchBr.placeholder = "GitHubのリポジトリを検索できるよー"
         SchBr.delegate = self
-    }
-    
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        // ↓こうすれば初期のテキストを消せる
-        searchBar.text = ""
-        return true
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
