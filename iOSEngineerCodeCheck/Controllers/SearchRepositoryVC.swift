@@ -37,7 +37,7 @@ class SearchRepositoryVC: UITableViewController, UISearchBarDelegate {
                 self.tableView.reloadData()
                 return
             }, failure: {(error) in
-                print(1)
+                print(error)
                 return
             })
             

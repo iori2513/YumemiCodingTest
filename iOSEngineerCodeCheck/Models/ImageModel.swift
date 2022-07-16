@@ -26,10 +26,21 @@ class Image {
                 return
             }
             else {
-                guard let data = data else { return }
-                guard let img = UIImage(data: data) else {
+                //dataがなければエラーを返す
+                guard let data = data else {
+                    DispatchQueue.main.async {
+                        failure(APIError.unknown)
+                    }
                     return
                 }
+                
+                guard let img = UIImage(data: data) else {
+                    DispatchQueue.main.async {
+                        failure(APIError.unknown)
+                    }
+                    return
+                }
+                
                 DispatchQueue.main.async {
                     success(img)
                 }

@@ -9,12 +9,29 @@
 import Foundation
 import UIKit
 
+enum APIError: Error, CustomStringConvertible {
+    case unknown
+    case urlError
+    case responseError
+    
+    var description: String {
+        switch self {
+        case .unknown:
+            return "unknown error"
+        case .urlError:
+            return "URL error"
+        case .responseError:
+            return "response error"
+        }
+    }
+}
 
 class API {
     
     func getData(for word: String, success: @escaping([Repository]) -> Void, failure: @escaping(Error) -> Void) {
         let requestURL = URL(string: "https://api.github.com/search/repositories?q=\(word)")
         guard let requestURL = requestURL else {
+            failure(APIError.urlError)
             return
         }
         var request = URLRequest(url: requestURL) //リクエストを作成
@@ -30,9 +47,29 @@ class API {
                 return
             }
             else {
-                guard let data = data else { return }
-                guard let jsonOptional = try! JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
-                guard let json = jsonOptional["items"] as? [[String: Any]] else { return }
+                guard let data = data else {
+                    //dataがなければエラーを返す
+                    DispatchQueue.main.async {
+                        failure(APIError.unknown)
+                    }
+                    return
+                }
+                
+                guard let jsonOptional = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                    //レスポンスエラー
+                    DispatchQueue.main.async {
+                        failure(APIError.responseError)
+                    }
+                    return
+                }
+                
+                guard let json = jsonOptional["items"] as? [[String: Any]] else {
+                    //型変換に失敗したらエラーを返す
+                    DispatchQueue.main.async {
+                        failure(APIError.unknown)
+                    }
+                    return
+                }
 
                 var repos = [Repository]() //Repositoryを検索した際に出る候補
                 //候補を追加
