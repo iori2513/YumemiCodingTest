@@ -13,13 +13,7 @@ class SearchRepositoryVC: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var SchBr: UISearchBar!
     
     var repos = [Repository]()
-    
-    var task: URLSessionTask?
-    var word: String?
-    var url: String!
     var idx: Int!
-    
-    let api = API()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +22,10 @@ class SearchRepositoryVC: UITableViewController, UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
-        word = searchBar.text
+        let word = searchBar.text
         
         if let word = word {
+            let api = API()
             api.getData(for: word, success: { (repos) in
                 self.repos = repos
                 self.tableView.reloadData()
