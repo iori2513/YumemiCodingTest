@@ -12,7 +12,7 @@ class SearchRepositoryVC: UITableViewController, UISearchBarDelegate {
 
     @IBOutlet weak var SchBr: UISearchBar!
     
-    var repos = [Repository]()
+    var repos = [Repository]() //検索したRepositoryを保存する
     var idx: Int!
     
     override func viewDidLoad() {
