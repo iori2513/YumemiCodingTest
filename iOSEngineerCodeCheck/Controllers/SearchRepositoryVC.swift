@@ -27,10 +27,6 @@ class SearchRepositoryVC: UITableViewController, UISearchBarDelegate {
         SchBr.delegate = self
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        task?.cancel()
-    }
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         word = searchBar.text
