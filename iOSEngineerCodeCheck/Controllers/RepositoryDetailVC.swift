@@ -41,7 +41,8 @@ class RepositoryDetailVC: UIViewController {
         
         //画像を取得し、画面に表示する
         let image = Image()
-        image.getImage(for: repo, success: {(img) in
+        image.getImage(for: repo, success: {[weak self] (img) in //循環参照を防ぐ
+            guard let self = self else { return }
             self.ImgView.image = img
             return
         }, failure: {(error) in

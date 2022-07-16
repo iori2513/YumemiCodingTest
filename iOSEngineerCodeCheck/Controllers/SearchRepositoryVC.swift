@@ -23,21 +23,17 @@ class SearchRepositoryVC: UITableViewController, UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let word = searchBar.text
-        
-        if let word = word {
-            let api = API()
-            api.getData(for: word, success: { (repos) in
-                self.repos = repos
-                self.tableView.reloadData()
-                return
-            }, failure: {(error) in
-                print(error)
-                return
-            })
-            
-        }
-        else { return }
-        
+        let api = API()
+        guard let word = word else { return }
+        api.getData(for: word, success: { [weak self] (repos) in //循環参照を防ぐ
+            guard let self = self else { return }
+            self.repos = repos
+            self.tableView.reloadData()
+            return
+        }, failure: {(error) in
+            print(error)
+            return
+        })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
