@@ -69,7 +69,6 @@ class SearchRepositoryVC: UITableViewController, UISearchBarDelegate {
         // cellの内容
         content.text = rp.name
         content.secondaryText = rp.language
-//        cell.tag = indexPath.row
         cell.contentConfiguration = content
         return cell
         
