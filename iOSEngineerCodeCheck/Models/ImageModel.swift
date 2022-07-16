@@ -17,6 +17,8 @@ class Image {
         guard let imgURL = owner["avatar_url"] as? String else { return } //URLを取得する
         var request = URLRequest(url: URL(string: imgURL)!) //リクエストを作成する
         request.httpMethod = "GET"
+        
+        //タスクを作成
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             //エラーがあればエラーを返す
             if let error = error  {
@@ -33,6 +35,7 @@ class Image {
                 }
             }
         }
+        //タスクを実行
         task.resume()
     }
 }

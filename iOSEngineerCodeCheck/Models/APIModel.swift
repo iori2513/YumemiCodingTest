@@ -17,30 +17,36 @@ class API {
         guard let requestURL = requestURL else {
             return
         }
-        var request = URLRequest(url: requestURL)
+        var request = URLRequest(url: requestURL) //リクエストを作成
         request.httpMethod = "GET"
-
+        
+        //タスクを作成
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            //エラーが存在すればエラーを返す
             if let error = error {
                 DispatchQueue.main.async {
                     failure(error)
                 }
                 return
             }
-            guard let data = data else { return }
-            guard let jsonOptional = try! JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
-            guard let json = jsonOptional["items"] as? [[String: Any]] else { return }
+            else {
+                guard let data = data else { return }
+                guard let jsonOptional = try! JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
+                guard let json = jsonOptional["items"] as? [[String: Any]] else { return }
 
-            var repos = [Repository]()
-            for j in json {
-                let repo = Repository(attributes: j)
-                repos.append(repo)
-            }
-            DispatchQueue.main.async {
-                success(repos)
+                var repos = [Repository]() //Repositoryを検索した際に出る候補
+                //候補を追加
+                for j in json {
+                    let repo = Repository(attributes: j)
+                    repos.append(repo)
+                }
+                DispatchQueue.main.async {
+                    success(repos)
+                }
             }
 
-            }
+        }
+        //タスクを実行
         task.resume()
 
     }
