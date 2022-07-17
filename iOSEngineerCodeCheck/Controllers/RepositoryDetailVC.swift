@@ -11,16 +11,12 @@ import UIKit
 class RepositoryDetailVC: UIViewController {
     
     @IBOutlet weak var ImgView: UIImageView!
-    
     @IBOutlet weak var titleLabel: UILabel!
-    
     @IBOutlet weak var langLabel: UILabel!
-    
     @IBOutlet weak var starsLabel: UILabel!
     @IBOutlet weak var watchersLabel: UILabel!
     @IBOutlet weak var forksLabel: UILabel!
     @IBOutlet weak var issueLabel: UILabel!
-    
     var vc1: SearchRepositoryVC!
         
     override func viewDidLoad() {
@@ -28,7 +24,7 @@ class RepositoryDetailVC: UIViewController {
         viewSetting()
     }
     
-    func viewSetting() {
+    private func viewSetting() {
         let repo = vc1.repos[vc1.idx]
         
         //Labelに挿入するテキストを設定
