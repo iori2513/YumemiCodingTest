@@ -12,14 +12,14 @@ class RepositoryDetailVC: UIViewController {
     
     @IBOutlet weak var ImgView: UIImageView!
     
-    @IBOutlet weak var TtlLbl: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     
-    @IBOutlet weak var LangLbl: UILabel!
+    @IBOutlet weak var langLabel: UILabel!
     
-    @IBOutlet weak var StrsLbl: UILabel!
-    @IBOutlet weak var WchsLbl: UILabel!
-    @IBOutlet weak var FrksLbl: UILabel!
-    @IBOutlet weak var IsssLbl: UILabel!
+    @IBOutlet weak var starsLabel: UILabel!
+    @IBOutlet weak var watchersLabel: UILabel!
+    @IBOutlet weak var forksLabel: UILabel!
+    @IBOutlet weak var issueLabel: UILabel!
     
     var vc1: SearchRepositoryVC!
         
@@ -32,12 +32,12 @@ class RepositoryDetailVC: UIViewController {
         let repo = vc1.repos[vc1.idx]
         
         //Labelに挿入するテキストを設定
-        TtlLbl.text = repo.name
-        LangLbl.text = "Written in \(repo.language)"
-        StrsLbl.text = "\(repo.stargazersCount) stars"
-        WchsLbl.text = "\(repo.watchersCount) watchers"
-        FrksLbl.text = "\(repo.forksCount) forks"
-        IsssLbl.text = "\(repo.openIssuesCount) open issues"
+        titleLabel.text = repo.name
+        langLabel.text = "Written in \(repo.language)"
+        starsLabel.text = "\(repo.stargazersCount) stars"
+        watchersLabel.text = "\(repo.watchersCount) watchers"
+        forksLabel.text = "\(repo.forksCount) forks"
+        issueLabel.text = "\(repo.openIssuesCount) open issues"
         
         //画像を取得し、画面に表示する
         let image = Image()
